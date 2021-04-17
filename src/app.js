@@ -14,11 +14,15 @@ app.get('/api/products', (req, res)=>{
 })
 
 // getting single product from products json
-app.get('/api/products/1', (req, res)=>{
-    const product = products.find(prod =>{
-        return prod.id = 1
+app.get('/api/products/:product_ID', (req, res)=>{
+    // here product_ID is use as placeholder to get specifed product
+    // console.log("param: ", req.params);
+    const {product_ID} = req.params
+    // console.log(product_ID);
+    const singleProduct = products.find(prod =>{
+        return prod.id === parseInt(product_ID)
     })
-    res.status(200).json(product)
+    res.status(200).json(singleProduct)
 })
 
 
