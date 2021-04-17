@@ -36,6 +36,31 @@ app.get('/api/products/:productId/reviews/:reviewId', (req, res)=>{
     res.status(200).send("Reviews")
 })
 
+app.get('/api/v1/query', (req, res)=>{
+    const {search, limit} = req.query
+    let copyProduct = [...products]
+    if(search){
+        
+        copyProduct = copyProduct.filter(prod=>{
+            return prod.name.startsWith(search)
+        })
+    }
+    if(limit){
+        copyProduct = copyProduct.slice(0, parseInt(limit))
+    }
+    if (copyProduct.length) {
+        return  res.status(200).json(copyProduct).end()
+            
+    }
+        // res.status(200).send('<h2>No Match Found</h2>')
+    return res.status(200).json({
+            success: true,
+            data : []
+        }).end()
+    
+    
+})
+
 
 
 
