@@ -22,7 +22,18 @@ app.get('/api/products/:product_ID', (req, res)=>{
     const singleProduct = products.find(prod =>{
         return prod.id === parseInt(product_ID)
     })
-    res.status(200).json(singleProduct)
+    if(!singleProduct) {
+        res.status(404).send("<h2>Product does not exist</h2><a href = '/api/products'>Goto Homepage")
+    }else{
+        res.status(200).json(singleProduct)
+        res.end()
+    }
+    
+})
+
+app.get('/api/products/:productId/reviews/:reviewId', (req, res)=>{
+    console.log(req.params)
+    res.status(200).send("Reviews")
 })
 
 
