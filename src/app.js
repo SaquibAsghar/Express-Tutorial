@@ -4,6 +4,8 @@ const logger = require("./loggerMiddleware");
 const app = express();
 
 // Using Middleware
+app.use('/api',logger)
+// this middleware only work in path containg api/anypath
 
 app.get("/", logger, (req, res) => {
 	res.status(200).send("Home page");
