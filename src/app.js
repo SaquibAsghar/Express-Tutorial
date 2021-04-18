@@ -1,8 +1,8 @@
-const { urlencoded } = require("express");
 const express = require("express");
 const app = express();
 const path = require('path')
-let { people } = require("./data");
+
+const peopleRoute = require('../router/routes/people')
 
 app.use(express.static(path.join(__dirname, '../public')))
 
@@ -10,18 +10,8 @@ app.use(express.urlencoded({extended: false}))
 
 app.use(express.json())
 
-app.get("/api/people", (req, res) => {
-	res.status(200).json({ success: true, data: people });
-});
+app.use('/api/people', peopleRoute)
 
-app.post("/api/people", (req, res) => {
-    const {name} = req.body
-    if(name){
-        return res.status(201).json({ success: true, person: name }).end();
-    }
-    return res.status(401).json({status: false, msg:'Please provide name value'}).end()
-	
-});
 
 // POST request
 app.post('/login', (req, res)=>{
