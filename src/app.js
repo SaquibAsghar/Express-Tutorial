@@ -1,12 +1,15 @@
 const express = require("express");
-const logger = require("./loggerMiddleware");
-const authorize = require('./authorizeMiddlware')
+const logger = require("../middleware/loggerMiddleware");
+const authorize = require('../middleware/authorizeMiddlware')
+const morgan = require('morgan')
 
 const app = express();
 
 // Using Middleware
-app.use([logger, authorize])
+// app.use([logger, authorize])
 // this middleware only work in path containg api/anypath
+
+app.use(morgan('tiny'))
 
 app.get("/", (req, res) => {
 	res.status(200).send("Home page").end();
